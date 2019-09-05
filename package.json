@@ -1,0 +1,47 @@
+{
+  "name": "tsed_testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon dist/index.js",
+    "start": "concurrently npm:start:*",
+    "prod": "tsc && node dist/index.js",
+    "test": "npm run clean && npm run test:lint && npm run test:coverage",
+    "test:unit": "cross-env NODE_ENV=test mocha",
+    "test:coverage": "cross-env NODE_ENV=test nyc mocha",
+    "test:lint": "tslint --project tsconfig.json",
+    "test:lint:fix": "tslint --project tsconfig.json --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.1",
+    "@types/express": "^4.17.1",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@tsed/common": "^5.28.0",
+    "@tsed/core": "^5.28.0",
+    "@tsed/di": "^5.28.0",
+    "@tsed/testing": "^5.28.0",
+    "@tsed/typeorm": "^5.28.0",
+    "body-parser": "^1.19.0",
+    "class-validator": "^0.10.0",
+    "compression": "^1.7.4",
+    "concurrently": "^4.1.2",
+    "cookie-parser": "^1.4.4",
+    "cross-env": "^5.2.1",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.2",
+    "sinon": "^7.4.2",
+    "supertest": "^4.0.2",
+    "typeorm": "^0.2.18"
+  }
+}
