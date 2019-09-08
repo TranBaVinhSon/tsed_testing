@@ -1,9 +1,9 @@
+import "reflect-metadata";
 import {
   ServerLoader,
   ServerSettings,
   GlobalAcceptMimesMiddleware
 } from "@tsed/common";
-import "reflect-metadata";
 import dotenv from "dotenv";
 import "@tsed/typeorm";
 import { User } from "./db/entities/User";
@@ -21,20 +21,21 @@ const rootDir = __dirname;
   // // config typeorm
   typeorm: [
     {
-      name: "default",
-      host: "127.0.0.1",
       type: "mysql",
-      port: 3606,
+      host: "localhost",
+      port: 3306,
       username: "root",
       password: "root",
       database: "tsed_testing",
-      logging: true, // logging query for debugging
+      synchronize: true,
+      logging: false,
       entities: [User, Post]
     }
   ],
+  debug: true,
   // mount controller + routing
   mount: {
-    "/api/v1": `${rootDir}/controllers/v1/*.ts`
+    "/api/v1": `${rootDir}/controllers/v1/UserController.ts`
   }
 })
 export class Server extends ServerLoader {
@@ -43,7 +44,7 @@ export class Server extends ServerLoader {
    * @returns {Server}
    */
 
-  public $onMountingMiddlewares(): void | Promise<any> {
+  public $onBeforeRoutesInit(): void | Promise<any> {
     this.use(GlobalAcceptMimesMiddleware);
     return null;
   }

@@ -9,7 +9,8 @@
     "rootDir": "src",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "composite": true
+    "composite": true,
+    "skipLibCheck": true
   },
   "lib": ["es2015"]
 }
