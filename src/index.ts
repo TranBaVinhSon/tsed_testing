@@ -1,10 +1,13 @@
-import { Server } from "./Server";
+import {Server} from "./Server";
+import {ServerLoader} from "@tsed/common";
 
-new Server()
-  .start()
-  .then(() => {
-    console.log("Server started...");
-  })
-  .catch(err => {
-    console.error(err);
-  });
+async function bootstrap() {
+  const server = await ServerLoader.bootstrap(Server);
+
+  await server.listen();
+  console.log("Server started...");
+
+  return;
+}
+
+bootstrap();

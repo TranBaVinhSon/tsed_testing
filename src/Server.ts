@@ -1,13 +1,11 @@
-import "reflect-metadata";
-import {
-  ServerLoader,
-  ServerSettings,
-  GlobalAcceptMimesMiddleware
-} from "@tsed/common";
-import dotenv from "dotenv";
+import {GlobalAcceptMimesMiddleware, ServerLoader, ServerSettings} from "@tsed/common";
 import "@tsed/typeorm";
-import { User } from "./db/entities/User";
-import { Post } from "./db/entities/Post";
+import "@tsed/swagger";
+
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import compress from "compression";
+import methodOverride from "method-override";
 
 const rootDir = __dirname;
 
@@ -32,11 +30,15 @@ const rootDir = __dirname;
   //     entities: [User, Post]
   //   }
   // ],
-  debug: true,
-  // mount controller + routing
+  debug: false,
   mount: {
     "/api/v1": `${rootDir}/controllers/v1/UserController.ts`
-  }
+  },
+  swagger: [
+    {
+      path: "/api-docs"
+    }
+  ]
 })
 export class Server extends ServerLoader {
   /**
@@ -44,8 +46,18 @@ export class Server extends ServerLoader {
    * @returns {Server}
    */
 
-  public $onBeforeRoutesInit(): void | Promise<any> {
-    this.use(GlobalAcceptMimesMiddleware);
+  public $beforeRoutesInit(): void | Promise<any> {
+    console.log("=====> $onBeforeRoutesInit");
+    this
+      .use(GlobalAcceptMimesMiddleware)
+      .use(cookieParser())
+      .use(compress({}))
+      .use(methodOverride())
+      .use(bodyParser.json())
+      .use(bodyParser.urlencoded({
+        extended: true
+      }));
+
     return null;
   }
 }
