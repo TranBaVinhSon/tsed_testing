@@ -5,7 +5,7 @@ import { User } from "./User";
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn({
-    unsigned: true
+    unsigned: true,
   })
   id: number;
 

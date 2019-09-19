@@ -5,30 +5,30 @@ import { User } from "../entities/User";
 
 @Service()
 export class UsersService implements AfterRoutesInit {
-  private connection: Connection;
-  constructor(private typeORMService: TypeORMService) {}
+  // private connection: Connection;
+  // constructor(private typeORMService: TypeORMService) {}
 
-  $afterRoutesInit() {
-    this.connection = this.typeORMService.get();
+  public $afterRoutesInit(): void {
+    // this.connection = this.typeORMService.get();
   }
 
-  async create(user: User): Promise<User> {
-    await this.connection.manager.save(user);
-    return user;
-  }
+  // async create(user: User): Promise<User> {
+  //   await this.connection.manager.save(user);
+  //   return user;
+  // }
 
-  async findAll(): Promise<User[]> {
-    const users = await this.connection.manager.find(User);
-    console.log("Loaded users: ", users);
-    return users;
-  }
+  // async findAll(): Promise<User[]> {
+  //   const users = await this.connection.manager.find(User);
+  //   console.log("Loaded users: ", users);
+  //   return users;
+  // }
 
-  async find(id: number): Promise<User> {
-    const user = await this.connection
-      .getRepository(User)
-      .createQueryBuilder("user")
-      .where("user.id = :id", { id: id })
-      .getOne();
-    return user;
-  }
+  // async find(id: number): Promise<User> {
+  //   const user = await this.connection
+  //     .getRepository(User)
+  //     .createQueryBuilder("user")
+  //     .where("user.id = :id", { id: id })
+  //     .getOne();
+  //   return user;
+  // }
 }

@@ -9,12 +9,9 @@ describe("Users", () => {
   // bootstrap your expressApplication in first
   before(TestContext.bootstrap(Server));
   before(
-    TestContext.inject(
-      [ExpressApplication],
-      (expressApplication: ExpressApplication) => {
-        request = SuperTest(expressApplication);
-      }
-    )
+    TestContext.inject([ExpressApplication], (expressApplication: ExpressApplication) => {
+      request = SuperTest(expressApplication);
+    }),
   );
   after(TestContext.reset);
 
@@ -32,7 +29,7 @@ describe("Users", () => {
   // GET
   describe("GET /api/v1/users/:id", () => {
     it("should return a user", async () => {
-      let id = 1;
+      const id = 1;
       const response = await request.get(`/api/v1/users/${id}`).expect(200);
       expect(response.body).to.be.an("object");
       expect(response.body).to.have.property("id");
@@ -43,7 +40,7 @@ describe("Users", () => {
     });
 
     it("should return a 404 response", async () => {
-      let id = 100000;
+      const id = 100000;
       const response = await request.get(`/api/v1/users/${id}`).expect(404);
     });
   });
@@ -54,7 +51,7 @@ describe("Users", () => {
       const response = await request
         .post("/api/v1/users")
         .send({
-          name: "Tran B. V. Son"
+          name: "Tran B. V. Son",
         })
         .expect(200);
 

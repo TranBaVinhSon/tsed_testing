@@ -19,19 +19,19 @@ const rootDir = __dirname;
   httpPort: "3000",
   httpsPort: false,
   // // config typeorm
-  typeorm: [
-    {
-      type: "mysql",
-      host: "localhost",
-      port: 3306,
-      username: "root",
-      password: "root",
-      database: "tsed_testing",
-      synchronize: true,
-      logging: false,
-      entities: [User, Post]
-    }
-  ],
+  // typeorm: [
+  //   {
+  //     type: "mysql",
+  //     host: "localhost",
+  //     port: 3306,
+  //     username: "root",
+  //     password: "root",
+  //     database: "tsed_testing",
+  //     synchronize: true,
+  //     logging: false,
+  //     entities: [User, Post]
+  //   }
+  // ],
   debug: true,
   // mount controller + routing
   mount: {

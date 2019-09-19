@@ -11,28 +11,26 @@ describe("UsersService", () => {
     after(TestContext.reset);
     it("should return array data from db", async () => {
       // GIVEN
-      let users = [
+      const users = [
         {
           id: 1,
-          name: "son"
+          name: "son",
         },
         {
           id: 2,
-          name: "won"
-        }
+          name: "won",
+        },
       ];
       const connection = {
         manager: {
-          find: Sinon.stub().resolves(users)
-        }
+          find: Sinon.stub().resolves(users),
+        },
       };
       const typeORMService = {
-        get: Sinon.stub().returns(connection)
+        get: Sinon.stub().returns(connection),
       };
 
-      const usersService = await TestContext.invoke(UsersService, [
-        { provide: TypeORMService, use: typeORMService }
-      ]);
+      const usersService = await TestContext.invoke(UsersService, [{ provide: TypeORMService, use: typeORMService }]);
 
       // WHEN
       usersService.$afterRoutesInit();
@@ -51,16 +49,16 @@ describe("UsersService", () => {
     after(TestContext.reset);
     it("should return a data from db", async () => {
       // GIVEN
-      let user = {
+      const user = {
         id: 1,
-        name: "my name"
+        name: "my name",
       };
 
       const getOne = Sinon.stub().resolves(user);
       const where = Sinon.stub().callsArg(0);
       const createQueryBuilder = Sinon.stub().callsArg(0);
       const connection = {
-        getRepository: Sinon.stub()
+        getRepository: Sinon.stub(),
       };
 
       connection.getRepository.withArgs(User).returns(createQueryBuilder);
@@ -68,12 +66,10 @@ describe("UsersService", () => {
       where.withArgs("user.id = :id", { id: user.id }).returns(getOne);
 
       const typeORMService = {
-        get: Sinon.stub().returns(connection)
+        get: Sinon.stub().returns(connection),
       };
 
-      const usersService = await TestContext.invoke(UsersService, [
-        { provide: TypeORMService, use: typeORMService }
-      ]);
+      const usersService = await TestContext.invoke(UsersService, [{ provide: TypeORMService, use: typeORMService }]);
 
       // WHEN
       usersService.$afterRoutesInit();
@@ -90,21 +86,19 @@ describe("UsersService", () => {
     after(TestContext.reset);
     it("should save data to db", async () => {
       // GIVEN
-      let user = {
-        name: "son"
+      const user = {
+        name: "son",
       };
       const connection = {
         manager: {
-          save: Sinon.stub().resolves(user)
-        }
+          save: Sinon.stub().resolves(user),
+        },
       };
       const typeORMService = {
-        get: Sinon.stub().returns(connection)
+        get: Sinon.stub().returns(connection),
       };
 
-      const usersService = await TestContext.invoke(UsersService, [
-        { provide: TypeORMService, use: typeORMService }
-      ]);
+      const usersService = await TestContext.invoke(UsersService, [{ provide: TypeORMService, use: typeORMService }]);
 
       // WHEN
       usersService.$afterRoutesInit();
