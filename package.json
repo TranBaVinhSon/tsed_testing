@@ -20,7 +20,7 @@
     "@types/supertest": "^2.0.8",
     "chai": "^4.2.0",
     "faker": "^4.1.0",
-    "mocha": "^6.2.0"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "@tsed/common": "^5.28.0",
